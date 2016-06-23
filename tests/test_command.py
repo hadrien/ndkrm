@@ -12,26 +12,26 @@ class TestMain(unittest.TestCase):
         return Command()
 
     def test_header(self):
-        markdown = StringIO(u"# Title")
+        markdown = StringIO('# Title')
         self._get_command().run(markdown, self.f_output)
         self.assertEqual(self.f_output.getvalue(), u"<h1>Title</h1>")
 
     def test_header_utf8(self):
-        markdown = StringIO(u"# †☤тł℮")
+        markdown = StringIO(u"# †☤тł℮".encode('utf-8'))
         self._get_command().run(markdown, self.f_output)
         self.assertEqual(self.f_output.getvalue(),
                          u"<h1>†☤тł℮</h1>".encode('utf-8'))
 
     def test_unordered_list(self):
-        markdown = StringIO(u"""* First line
-                                * Second line""")
+        markdown = StringIO('''* First line
+                                * Second line''')
         self._get_command().run(markdown, self.f_output)
         self.assertEqual(self.f_output.getvalue(),
                          u"<ul><li>First line</li><li>Second line</li></ul>")
 
     def test_unordered_list_utf8(self):
         markdown = StringIO(u"""* ℉їґṧ☂ ł☤η℮
-                                * ϟℯḉ◎ηḓ℮ ℓ☤ᾔℯ""")
+                                * ϟℯḉ◎ηḓ℮ ℓ☤ᾔℯ""".encode('utf-8'))
         self._get_command().run(markdown, self.f_output)
         self.assertEqual(self.f_output.getvalue(),
                          (u"<ul><li>℉їґṧ☂ ł☤η℮</li>"
